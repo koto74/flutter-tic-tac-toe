@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'title_screen.dart';
 
-void main() => runApp(TicTacToeApp());
+void main() => runApp(const TicTacToeApp());
 
 class TicTacToeApp extends StatelessWidget {
+  const TicTacToeApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -12,7 +14,7 @@ class TicTacToeApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: TitleScreen(),
+      home: const TitleScreen(),
     );
   }
 }
