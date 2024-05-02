@@ -34,7 +34,7 @@ class TitleScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 100),
             const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -60,7 +60,7 @@ class TitleScreen extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 foregroundColor: Colors.white,
-                minimumSize: Size(200, 40),
+                minimumSize: const Size(200, 40),
               ),
               child: const Text('With AI'),
             ),
@@ -75,7 +75,7 @@ class TitleScreen extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 foregroundColor: Colors.white,
-                minimumSize: Size(200, 40),
+                minimumSize: const Size(200, 40),
               ),
               child: const Text('With a friend'),
             ),
