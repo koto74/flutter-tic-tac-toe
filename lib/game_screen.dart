@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class GameScreen extends StatefulWidget {
+  const GameScreen({super.key});
+
   @override
   GameScreenState createState() => GameScreenState();
 }
@@ -22,10 +24,10 @@ class GameScreenState extends State<GameScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tic Tac Toe'),
+        title: const Text('Tic Tac Toe'),
       ),
       body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
         ),
         itemCount: 9,
@@ -39,7 +41,7 @@ class GameScreenState extends State<GameScreen> {
               child: Center(
                 child: Text(
                   board[index],
-                  style: TextStyle(fontSize: 40),
+                  style: const TextStyle(fontSize: 40),
                 ),
               ),
             ),
