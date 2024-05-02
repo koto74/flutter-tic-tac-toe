@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class GameScreen extends StatefulWidget {
   @override
-  _GameScreenState createState() => _GameScreenState();
+  GameScreenState createState() => GameScreenState();
 }
 
-class _GameScreenState extends State<GameScreen> {
+class GameScreenState extends State<GameScreen> {
   List<String> board = List.filled(9, '', growable: false);
   String currentPlayer = 'X';
 
