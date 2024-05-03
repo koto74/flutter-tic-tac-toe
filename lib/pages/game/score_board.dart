@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of 'game_page.dart';
 
 class ScoreBoard extends StatelessWidget {
   final int xWins;
@@ -6,11 +6,11 @@ class ScoreBoard extends StatelessWidget {
   final int draws;
 
   const ScoreBoard({
-    Key? key,
+    super.key,
     required this.xWins,
     required this.oWins,
     required this.draws,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class ScoreBoard extends StatelessWidget {
       children: <Widget>[
         Text(player, style: TextStyle(fontSize: 18, color: color)),
         Text('$score Wins',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
       ],
     );
   }

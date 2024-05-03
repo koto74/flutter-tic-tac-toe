@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertictactoe/pages/game/score_board.dart';
+
+part 'score_board.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
@@ -25,8 +26,7 @@ class GameScreenState extends State<GameScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              ScoreBoard(
-                  xWins: xWins, oWins: oWins, draws: draws), // スコアボードのウィジェットを使用
+              ScoreBoard(xWins: xWins, oWins: oWins, draws: draws),
               Expanded(
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
