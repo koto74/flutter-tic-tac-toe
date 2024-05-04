@@ -121,10 +121,11 @@ class GameScreenState extends State<GameScreen> {
       .any((line) => line.every((index) => board[index] == currentPlayer));
 
   void _updateScore(String player) {
-    if (player == 'X')
+    if (player == 'X') {
       xWins++;
-    else
+    } else {
       oWins++;
+    }
   }
 
   Widget actionButtons() => Row(
