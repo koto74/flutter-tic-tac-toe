@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pages/title/title_page.dart';
+import 'package:fluttertictactoe/pages/title/title_page.dart';
 
 void main() => runApp(const TicTacToeApp());
 
