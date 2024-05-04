@@ -16,19 +16,23 @@ class GameScreenState extends State<GameScreen> {
   int currentMove = 0;
   List<String> board = List.filled(9, '');
   String currentPlayer = 'X';
+  bool isGameOver = false;
+  String winner = '';
 
   void handleTap(int index) {
-    if (board[index] != '') return;
+    if (board[index] != '' || isGameOver) return;
 
     setState(() {
       board[index] = currentPlayer;
       currentMove++;
       if (_checkWinner(currentPlayer, board)) {
         _updateScore(currentPlayer);
-        _restartGame();
+        winner = '$currentPlayer win';
+        isGameOver = true;
       } else if (currentMove >= 9) {
         draws++;
-        _restartGame();
+        winner = 'Draw';
+        isGameOver = true;
       }
     });
   }
@@ -47,7 +51,7 @@ class GameScreenState extends State<GameScreen> {
 
   Widget _buildGridItem(int index) {
     return GestureDetector(
-      onTap: () => handleTap(index),
+      onTap: () => {_checkWinner(currentPlayer, board) ? () : handleTap(index)},
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(color: Colors.black12),
@@ -84,6 +88,7 @@ class GameScreenState extends State<GameScreen> {
     setState(() {
       board = List.filled(9, '');
       currentMove = 0;
+      isGameOver = false;
     });
   }
 
@@ -127,7 +132,7 @@ class GameScreenState extends State<GameScreen> {
               SizedBox.fromSize(
                   size: const Size.square(300), child: gameBoard()),
               Text(
-                "$currentPlayer's move",
+                (isGameOver ? winner : "$currentPlayer's move"),
                 style: const TextStyle(color: Colors.black, fontSize: 18),
               ),
               Row(
