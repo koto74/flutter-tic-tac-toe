@@ -71,6 +71,7 @@ class GameScreenState extends State<GameScreen> {
         ? 0.5
         : 1.0;
     return GestureDetector(
+      key: Key('board_tile_$index'),
       onTap: () => handleTap(index),
       child: Opacity(
         opacity: opacity,
