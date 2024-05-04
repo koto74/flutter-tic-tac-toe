@@ -15,6 +15,7 @@ class GameScreenState extends State<GameScreen> {
   int draws = 0;
   int currentMove = 0;
   List<String> board = List.filled(9, '');
+  List<int> moveHistory = [];
   String currentPlayer = 'X';
   bool isGameOver = false;
   String winner = '';
@@ -24,16 +25,23 @@ class GameScreenState extends State<GameScreen> {
 
     setState(() {
       board[index] = currentPlayer;
-      currentMove++;
+      moveHistory.add(index);
+
+      if (moveHistory.length >= 7) {
+        board[moveHistory.first] = '';
+        moveHistory.removeAt(0);
+      }
+
       if (_checkWinner(currentPlayer, board)) {
         _updateScore(currentPlayer);
         winner = '$currentPlayer win';
         isGameOver = true;
-      } else if (currentMove >= 9) {
+      } else if (currentMove > 100) {
         draws++;
         winner = 'Draw';
         isGameOver = true;
       }
+      currentMove++;
     });
   }
 
@@ -50,21 +58,32 @@ class GameScreenState extends State<GameScreen> {
   }
 
   Widget _buildGridItem(int index) {
+    // 最も古いマークが次に消えることを示すために透明度を調整
+    double opacity = 1.0;
+    if (currentMove >= 6 &&
+        moveHistory.isNotEmpty &&
+        index == moveHistory.first) {
+      opacity = 0.5; // 次に消える要素を薄く表示
+    }
+
     return GestureDetector(
       onTap: () => {_checkWinner(currentPlayer, board) ? () : handleTap(index)},
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.black12),
-        ),
-        child: Center(
-          child: Icon(
-            board[index] == 'X'
-                ? Icons.close
-                : board[index] == 'O'
-                    ? Icons.radio_button_unchecked
-                    : null,
-            size: 40,
-            color: board[index] == 'X' ? Colors.blue : Colors.green,
+      child: Opacity(
+        opacity: opacity,
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black12),
+          ),
+          child: Center(
+            child: Icon(
+              board[index] == 'X'
+                  ? Icons.close
+                  : board[index] == 'O'
+                      ? Icons.radio_button_unchecked
+                      : null,
+              size: 40,
+              color: board[index] == 'X' ? Colors.blue : Colors.green,
+            ),
           ),
         ),
       ),
@@ -87,6 +106,7 @@ class GameScreenState extends State<GameScreen> {
   void _restartGame() {
     setState(() {
       board = List.filled(9, '');
+      moveHistory = [];
       currentMove = 0;
       isGameOver = false;
     });
