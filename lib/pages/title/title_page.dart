@@ -19,6 +19,16 @@ class TicTacToeApp extends StatelessWidget {
 class TitleScreen extends StatelessWidget {
   const TitleScreen({super.key});
 
+  void navigateToGameScreen(BuildContext context, {bool withAI = false}) {
+    // AIモードに対応した場合の追加ロジック
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const GameScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,59 +39,42 @@ class TitleScreen extends StatelessWidget {
           children: <Widget>[
             const Text(
               'Tic Tac Toe',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 100),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Icon(Icons.close, size: 40, color: Colors.blue),
-                SizedBox(width: 10),
-                Icon(Icons.radio_button_unchecked,
-                    size: 40, color: Colors.green),
-              ],
-            ),
+            iconRow(),
             const SizedBox(height: 30),
             const Text(
               'Choose your play mode',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.black54,
-              ),
+              style: TextStyle(fontSize: 16, color: Colors.black54),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // TODO: AIモードのゲーム画面への遷移を追加
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                foregroundColor: Colors.white,
-                minimumSize: const Size(200, 40),
-              ),
-              child: const Text('With AI'),
-            ),
+            playModeButton(context, 'With AI', true),
             const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const GameScreen()));
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                foregroundColor: Colors.white,
-                minimumSize: const Size(200, 40),
-              ),
-              child: const Text('With a friend'),
-            ),
+            playModeButton(context, 'With a friend', false),
           ],
         ),
       ),
     );
   }
+
+  Widget iconRow() => const Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Icon(Icons.close, size: 40, color: Colors.blue),
+          SizedBox(width: 10),
+          Icon(Icons.radio_button_unchecked, size: 40, color: Colors.green),
+        ],
+      );
+
+  Widget playModeButton(BuildContext context, String text, bool withAI) =>
+      ElevatedButton(
+        onPressed: () => navigateToGameScreen(context, withAI: withAI),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+          minimumSize: const Size(200, 40),
+        ),
+        child: Text(text),
+      );
 }
