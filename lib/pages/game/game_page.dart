@@ -15,6 +15,7 @@ class GameScreenState extends State<GameScreen> {
   int draws = 0;
   int currentMove = 0;
   List<String> board = List.filled(9, '');
+  List<int> moveHistory = [];
   String currentPlayer = 'X';
   bool isGameOver = false;
   String winner = '';
@@ -24,16 +25,19 @@ class GameScreenState extends State<GameScreen> {
 
     setState(() {
       board[index] = currentPlayer;
-      currentMove++;
+      moveHistory.add(index);
+
+      if (moveHistory.length >= 7) {
+        board[moveHistory.first] = '';
+        moveHistory.removeAt(0);
+      }
+
       if (_checkWinner(currentPlayer, board)) {
         _updateScore(currentPlayer);
         winner = '$currentPlayer win';
         isGameOver = true;
-      } else if (currentMove >= 9) {
-        draws++;
-        winner = 'Draw';
-        isGameOver = true;
       }
+      currentMove++;
     });
   }
 
@@ -87,6 +91,7 @@ class GameScreenState extends State<GameScreen> {
   void _restartGame() {
     setState(() {
       board = List.filled(9, '');
+      moveHistory = [];
       currentMove = 0;
       isGameOver = false;
     });

@@ -19,7 +19,6 @@ class ScoreBoard extends StatelessWidget {
       children: <Widget>[
         _scoreTile('X', xWins, Colors.blue),
         _scoreTile('O', oWins, Colors.green),
-        _scoreTile('Draws', draws, Colors.grey),
       ],
     );
   }
